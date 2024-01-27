@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import HomePage from './Pages/HomePage';
+import LoginPage from './Pages/LoginPage';
+import { useKeycloak } from '@react-keycloak/web';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App(){
+  const { keycloak } = useKeycloak();
+
+  return(
+    <BrowserRouter>
+      <Routes>
+        <Route 
+          path="/login"
+          element={keycloak.authenticated ? <Navigate replace to="/" /> : <LoginPage />}
+        />
+        <Route 
+          path="/"
+          element={keycloak.authenticated ? <HomePage/> : <Navigate to="login" />}
+        />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App;
