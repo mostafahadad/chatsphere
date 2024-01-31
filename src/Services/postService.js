@@ -20,3 +20,26 @@ export const addPost = async (keycloak, content) => {
     throw error;
   }
 };
+
+export const listPosts = async (keycloak) => {
+  try {
+    const response = await axios.get(
+      "http://localhost:5103/api/Post/GetAllPosts",
+      {
+        headers: {
+          Authorization: `Bearer ${keycloak.token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (!error.response) {
+      // Network error or server not responding
+      console.error("Network error or server not responding:", error);
+    } else {
+      // Server responded with a status code other than 2xx
+      console.error("Error listing posts:", error.response);
+    }
+    throw error;
+  }
+};

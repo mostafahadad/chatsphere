@@ -2,6 +2,8 @@ import keycloak from "../keycloak";
 import { useEffect } from "react";
 import { addUser } from "../Services/userService";
 import AddPostForm from "../components/AddPostForm";
+import PostDisplay from "../components/PostDisplay";
+import PostList from "../components/PostList";
 
 function HomePage() {
   const logout = () => {
@@ -23,6 +25,7 @@ function HomePage() {
   return (
     <div>
       <AddPostForm />
+      <PostList />
       <button onClick={logout}>Logout</button>
     </div>
   );
