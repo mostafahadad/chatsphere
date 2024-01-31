@@ -1,8 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { addPost } from "../Services/postService";
+import keycloak from "../keycloak";
 
-function AddPostForm({ userEmail }) {
+function AddPostForm() {
   const [text, setText] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const characterLimit = 280;
+
+  useEffect(() => {
+    if (keycloak.authenticated) {
+      keycloak
+        .loadUserProfile()
+        .then((profile) => {
+          setUserEmail(profile.email);
+        })
+        .catch((err) => {
+          console.error("Error fetching user profile", err);
+        });
+    }
+  }, []);
 
   const handleInputChange = (event) => {
     setText(event.target.value);
@@ -10,6 +26,13 @@ function AddPostForm({ userEmail }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    addPost(keycloak, text)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error adding post", error);
+      });
     alert(`Posted message: ${text}`);
     setText(""); // Clear the text field after posting
   };
