@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = 'http://localhost:5103/api/user'
+const API_URL = 'http://localhost:5103/api/post/addpost'
 
 export const addUser = async (keycloak) => {
     try{
