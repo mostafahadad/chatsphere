@@ -9,6 +9,7 @@ export const addComment = async (keycloak, content, postId) => {
       postId: postId,
     };
 
+    console.log(payload);
     const response = await axios.post(API_URL, payload, {
       headers: {
         Authorization: `Bearer ${keycloak.token}`,

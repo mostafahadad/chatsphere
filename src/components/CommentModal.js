@@ -17,7 +17,7 @@ function CommentModal({ postId, isOpen, onRequestClose, submitComment }) {
 
   const handleCommentSubmit = () => {
     submitComment(comment);
-    addComment(keycloak, postId, comment);
+    addComment(keycloak, comment, postId);
     setComment("");
     onRequestClose();
   };
