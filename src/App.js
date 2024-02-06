@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './Pages/HomePage';
 import LoginPage from './Pages/LoginPage';
-import PostPage from './Pages/PostDisplayPage.js';
+import PostPage from './Pages/PostPage.js';
 import { useKeycloak } from '@react-keycloak/web';
 
 function App(){
