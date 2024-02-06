@@ -16,8 +16,10 @@ const PostList = () => {
         // Assuming each post has a unique id for a key; otherwise, use the index as a fallback
         <PostDisplay
           key={post.id || index}
-          username={post.userId}
+          postId={post.id}
+          email={post.email}
           content={post.content}
+          commentsCount={post.commentsCount}
         />
       ))}
     </div>
