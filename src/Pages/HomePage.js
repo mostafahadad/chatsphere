@@ -2,7 +2,7 @@ import keycloak from "../keycloak";
 import { useEffect } from "react";
 import { addUser } from "../Services/userService";
 import AddPostForm from "../components/AddPostForm";
-import PostDisplay from "../components/PostDisplay";
+import PostDisplay from "../components/Post";
 import PostList from "../components/PostList";
 
 function HomePage() {

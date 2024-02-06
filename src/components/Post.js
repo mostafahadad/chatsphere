@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CommentModal from "./CommentModal";
+import { useNavigate } from "react-router-dom"; 
 
 function PostDisplay({ postId, email, content, likesCount, commentsCount }) {
   const [liked, setLiked] = useState(false); // State to manage whether the post is liked
@@ -25,8 +26,13 @@ function PostDisplay({ postId, email, content, likesCount, commentsCount }) {
     setIsCommentModalOpen(false);
   };
 
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/post/${postId}`);
+  }
+
   return (
-    <div className="max-w-md mx-auto my-5 bg-white rounded-xl border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+    <div onClick={handleClick} className="cursor-pointer max-w-md mx-auto my-5 bg-white rounded-xl border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
       <div className="p-5">
         <div className="flex items-center space-x-4">
           <div className="flex-shrink-0">

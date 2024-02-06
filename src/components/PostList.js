@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { listPosts } from "../Services/postService";
 import keycloak from "../keycloak";
-import PostDisplay from "./PostDisplay";
+import PostDisplay from "./Post";
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
