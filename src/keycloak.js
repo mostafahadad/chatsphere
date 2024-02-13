@@ -1,7 +1,7 @@
 import Keycloak from "keycloak-js";
 
 const keycloakConfig = {
-  url: "http://192.168.1.249:8080/auth/",
+  url: "http://localhost:8080/",
   realm: "MyApp",
   clientId: "ChatSphereAPI",
 };

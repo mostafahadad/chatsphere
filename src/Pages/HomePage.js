@@ -1,11 +1,13 @@
 import keycloak from "../keycloak";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { addUser } from "../Services/userService";
 import AddPostForm from "../components/AddPostForm";
-import PostDisplay from "../components/Post";
-import PostList from "../components/PostList";
+import PostDisplay from "../components/PostListComponents/Post";
+import PostList from "../components/PostListComponents/PostList";
 
 function HomePage() {
+  const [posts, setPosts] = useState([]);
+
   const logout = () => {
     keycloak.logout();
   };
@@ -24,8 +26,8 @@ function HomePage() {
 
   return (
     <div>
-      <AddPostForm />
-      <PostList />
+      <AddPostForm setPosts={setPosts} />
+      <PostList posts={posts} setPosts={setPosts} />
       <button onClick={logout}>Logout</button>
     </div>
   );

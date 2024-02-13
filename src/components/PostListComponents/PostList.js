@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { listPosts } from "../Services/postService";
-import keycloak from "../keycloak";
+import { listPosts } from "../../Services/postService";
+import keycloak from "../../keycloak";
 import PostDisplay from "./Post";
 
-const PostList = () => {
-  const [posts, setPosts] = useState([]);
-
+const PostList = ({ posts, setPosts }) => {
   useEffect(() => {
     listPosts(keycloak).then((res) => setPosts(res));
   }, []);
+
+  console.log(posts);
 
   return (
     <div>
@@ -19,6 +19,8 @@ const PostList = () => {
           postId={post.id}
           email={post.email}
           content={post.content}
+          userHasLiked={post.userHasLiked}
+          likesCount={post.likesCount}
           commentsCount={post.commentsCount}
         />
       ))}

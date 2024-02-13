@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { addPost } from "../Services/postService";
+import { addPost, listPosts } from "../Services/postService";
 import keycloak from "../keycloak";
 
-function AddPostForm() {
+function AddPostForm({ setPosts }) {
   const [text, setText] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const characterLimit = 280;
@@ -28,12 +28,11 @@ function AddPostForm() {
     event.preventDefault();
     addPost(keycloak, text)
       .then((data) => {
-        console.log(data);
+        listPosts(keycloak).then((res) => setPosts(res));
       })
       .catch((error) => {
         console.error("Error adding post", error);
       });
-    alert(`Posted message: ${text}`);
     setText(""); // Clear the text field after posting
   };
 
