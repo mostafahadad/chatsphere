@@ -1,8 +1,10 @@
+import React from "react";
+
 function CommentButton({ commentsCount, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="flex items-center space-x-2 text-gray-500 hover:text-green-600 transition-colors duration-300"
+      className="flex items-center space-x-2 p-2 rounded-lg transition duration-300 ease-in-out text-gray-500 hover:text-green-600 hover:bg-gradient-to-r from-green-200 to-green-300"
     >
       <svg
         className="h-6 w-6"

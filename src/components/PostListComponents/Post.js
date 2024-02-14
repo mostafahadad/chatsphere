@@ -3,9 +3,10 @@ import LikeButton from "./LikeButton";
 import CommentButton from "./CommentButton";
 import UserInfo from "./UserInfo";
 import { useNavigate } from "react-router-dom";
-import keycloak from "../../keycloak";
 import CommentModal from "../CommentModal";
-import { addLike } from "../../Services/likeService";
+import keycloak from "../../keycloak";
+import { useLike } from "../../hooks/useLike";
+import { formatDate } from "../../utils/formatDate";
 
 function Post({
   postId,
@@ -14,23 +15,22 @@ function Post({
   userHasLiked,
   likesCount,
   commentsCount,
+  timeStamp,
 }) {
-  const [liked, setLiked] = useState(userHasLiked);
-  let [likesCountState, setLikesCountState] = useState(likesCount);
+  const {
+    liked,
+    likesCount: updatedLikesCount,
+    toggleLike,
+  } = useLike(keycloak, postId, userHasLiked, likesCount);
+
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
   const [comments, setComments] = useState([]);
-
-  const toggleLike = () => {
-    setLiked(!liked);
-    setLikesCountState(liked ? likesCountState - 1 : likesCountState + 1);
-    addLike(keycloak, postId);
-  };
+  const navigate = useNavigate();
 
   const submitComment = (comment) => {
     setComments([...comments, comment]);
   };
 
-  const navigate = useNavigate();
   const handleClick = () => {
     navigate(`/post/${postId}`);
   };
@@ -41,11 +41,15 @@ function Post({
         <div onClick={handleClick} className="cursor-pointer">
           <UserInfo email={email} />
           <div className="mt-3 text-gray-700 text-lg">{content}</div>
+          {/* Display formatted timestamp */}
+          <div className="text-gray-500 text-sm mt-1">
+            {formatDate(timeStamp)}
+          </div>
         </div>
         <div className="mt-4 flex items-center space-x-4">
           <LikeButton
             liked={liked}
-            likesCount={likesCountState}
+            likesCount={updatedLikesCount}
             toggleLike={toggleLike}
           />
           <CommentButton
